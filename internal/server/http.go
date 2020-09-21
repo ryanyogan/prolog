@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// NewHTTPServer returns a pointer to an http.Server with our routes
 func NewHTTPServer(address string) *http.Server {
 	httpserver := newHTTPServer()
 	r := mux.NewRouter()
@@ -30,18 +31,22 @@ func newHTTPServer() *httpServer {
 	}
 }
 
+// ProduceRequest is the POST body with a Record
 type ProduceRequest struct {
 	Record Record `json:"record"`
 }
 
+// ProduceResponse is the response object containing the Offset value of the log
 type ProduceResponse struct {
 	Offset uint64 `json:"offset"`
 }
 
+// ConsumeRequest is the GET request providing the offset of the log
 type ConsumeRequest struct {
 	Offset uint64 `json:"offset"`
 }
 
+// ConsumeResponse is the response object containing the Record given the offset value
 type ConsumeResponse struct {
 	Record Record `json:"record"`
 }
